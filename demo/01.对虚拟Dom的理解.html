@@ -14,9 +14,9 @@
     <div id="app"></div>
   </body>
   <script>
-    let app = document.querySelector("#app");
+    let app = document.querySelector("#app"); //创建挂载点
     let root = ReactDOM.createRoot(app);
-    let element = React.createElement("h2", { title: "hi" }, "hello word");
+    let element = React.createElement("h2", { title: "hi" }, "hello word"); //产生虚拟dom
     root.render(element);
   </script>
 </html>
