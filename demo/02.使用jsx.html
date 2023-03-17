@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 这个主要是生成虚拟DOm -->
+    <script src="../react.development.js"></script>
+    <!-- 这个主要是Diff算法+处理真实DOM -->
+    <script src="../react-dom.development.js"></script>
+    <script src="../babel.min.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script type="text/babel">
+    let app = document.querySelector("#app"); //创建挂载点
+    let root = ReactDOM.createRoot(app);
+    // let element = React.createElement("h2", { title: "hi" }, "hellovweve word"); //产生虚拟dom
+    let element = <h2 title="hi">hewf</h2>;
+    root.render(element);
+  </script>
+</html>
