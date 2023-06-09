@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>轮播图</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      /* 展示区 */
+      #carousel {
+        width: 945px;
+        height: 617px;
+        margin: 10px auto;
+        background-color: royalblue;
+        padding: 20px 0;
+        /* 给一个绝对定位 */
+        position: relative;
+        /* 裁剪超出部分 */
+        overflow: hidden;
+      }
+      /* 内容区 */
+      #imgList {
+        list-style: none;
+        position: absolute;
+      }
+      #imgList li {
+        float: left;
+        /* margin: 0 10px; */
+      }
+      #imgList li img {
+        width: 945px;
+        height: 617px;
+        object-fit: cover;
+      }
+      /* 按钮的位置 */
+      #handler {
+        position: absolute;
+        bottom: 40px;
+        left: 470px;
+      }
+      #handler a {
+        /* float: left; */
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background-color: grey;
+        opacity: 0.6;
+        margin: 0 10px;
+      }
+      #handler a:hover {
+        background-color: aquamarine;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="carousel">
+      <ul id="imgList">
+        <li><img src="./img/1.png" /></li>
+
+        <li><img src="./img/2.png" /></li>
+
+        <li><img src="./img/3.png" /></li>
+
+        <li><img src="./img/4.png" /></li>
+      </ul>
+
+      <div id="handler">
+        <a href="javascript:;"></a>
+        <a href="javascript:;"></a>
+        <a href="javascript:;"></a>
+        <a href="javascript:;"></a>
+      </div>
+    </div>
+  </body>
+  <script>
+    window.onload = function () {
+      const imgList = document.getElementById("imgList"); //获取ul列表
+      //   获取所有图片标签
+      const img = document.getElementsByTagName("img");
+      //动态设置ul的宽度以适应所有的图表动态增加
+      imgList.style.width = img.length * 945 + "px";
+
+      //获取handler轮播图导航栏
+      const handler = document.getElementById("handler");
+      //设置图片的索引
+      let index = 0;
+      //获取所有a标签
+      var a = document.getElementsByTagName("a");
+      //   选中图片默认样式
+      a[index].style.backgroundColor = "aquamarine";
+      //   为a添加点击事件
+      for (var i = 0; i < a.length; i++) {
+        // 这个num为了确定当前点击的是哪个按钮为了和img产生联系
+        a[i].num = i;
+        console.log(i);
+        a[i].addEventListener("click", function () {
+          // 点击了就要取消定时器
+          clearInterval(timer);
+          index = this.num;
+          //设置选中的a标签,主要是将index值给a
+          active(index, img, imgList, a);
+        });
+      }
+      //自动运动
+      autoChange(index, img, imgList, a);
+    };
+    // 导航栏颜色改变
+    function active(index, img, imgList, a) {
+      console.log(index, img);
+      if (index >= img.length) {
+        index = 0;
+        //此时显示的最后一张图片，而最后一张图片和第一张是一摸一样
+        //通过CSS将最后一张切换成第一张
+        imgList.style.left = 0;
+      }
+      //排他思想
+      for (var i = 0; i < a.length; i++) {
+        a[i].style.backgroundColor = "";
+      }
+      a[index].style.backgroundColor = "aquamarine";
+    }
+    //创建一个函数，用来开启自动切换图片
+    function autoChange(index, img, imgList, a) {
+      timer = setInterval(function () {
+        index++;
+        //判断当前idnex的值
+        index %= img.length;
+        active(index, img, imgList, a);
+      }, 3000);
+    }
+  </script>
+</html>

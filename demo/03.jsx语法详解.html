@@ -14,20 +14,82 @@
       .box {
         background-color: aqua;
       }
+      .wrap {
+        position: relative;
+        width: 360px;
+        height: 40px;
+        margin: 5px auto;
+        background: #ddd;
+        /* font-size: 0; */
+        overflow: hidden;
+        border: 1px solid #ddd;
+      }
+      /* @keyframes move {
+        0% {
+          left: 0;
+        }
+        100% {
+          left: -200%;
+        }
+      } */
     </style>
   </head>
   <body>
     <div id="app"></div>
   </body>
   <script type="text/babel">
+    // const [left, setLet] = useState(0);
+    // useEffect(() => {
+    //   setLet(100);
+    // }, []);
+    // 计算后台数据长度
+    let canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    context.font = "16px Microsoft YaHei";
+    const widhtd = context.measureText(
+      "1. 文字如滚动。aefgsregtrsgsdgfsra恶法1.文字如滚动。aefgsregtrsgsdgfsraDAVFAZVASDFSBFG恶法u恶法1.文字如滚动"
+    ).width;
+    console.log(widhtd);
+    let left = -175;
     let app = document.querySelector("#app"); //创建挂载点
     let root = ReactDOM.createRoot(app);
     // let element = React.createElement("h2", { title: "hi" }, "hellovweve word"); //产生虚拟dom
     let myClass = "box";
+    let mywith = "300%";
+    let paused = "running";
     // 自定义自己的样式
     let mystyle = {
       color: "red",
+      width: mywith,
+      border: "1px solid #ddd",
     };
+    let cont = {
+      position: "absolute",
+      top: "0",
+      left: "0",
+      /* 宽度 大于容器的两倍即可 */
+      width: widhtd + "px",
+      fontSize: "16px",
+      color: "#fff",
+      background: "#000",
+      animation: "5s move infinite linear",
+      
+    };
+
+    // const demo = ``;
+    const demo = `@keyframes move {
+      0% { left: 0px; }
+      100% { left: -${widhtd}px; }
+    }`;
+    const style = document.createElement("style");
+    style.type = "text/css";
+    style.innerHTML = demo;
+
+    document.getElementsByTagName("head")[0].appendChild(style);
+    //     const moved = document.styleSheets[0].cssRules[2].cssText;
+    //     moved = demoo;
+    //     console.log(moved);
+
     let element = (
       <div>
         <h2 title="hi">hewf</h2>
@@ -35,6 +97,11 @@
         <input type="text" id="elemetInput" />
         <p className="box">{myClass}</p>
         <p style={mystyle}>nihaodngd</p>
+        <div className="wrap">
+          <div style={cont}>
+            1.文字如滚动。aefgsregtrsgsdgfsra恶法1.文字如滚动。aefgsregtrsgsdgfsraDAVFAZVASDFSBFG恶法u恶法1.文字如滚动
+          </div>
+        </div>
       </div>
     );
 
